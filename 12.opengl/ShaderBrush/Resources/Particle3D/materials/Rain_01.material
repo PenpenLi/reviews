@@ -1,0 +1,19 @@
+
+material ParticleUniverse/Rain_01
+{
+	technique
+	{
+		pass
+		{
+			scene_blend add
+			depth_write off
+
+			texture_unit
+			{
+				texture pu_rain_01.png
+			}
+		}
+
+	}
+
+}

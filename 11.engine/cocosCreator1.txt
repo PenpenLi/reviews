@@ -1,0 +1,160 @@
+0.AnysdkMgr ???
+1.文件-新建场景-保存
+2.层级管理器-Canvas右键-创建节点
+3.资源管理器-文件夹右键-新建-文件夹/JavaScript
+4.选定Canvas:属性检查器-添加组件-用户脚本组件
+5.属性检查器-ClickEvents-脚本
+	拖拽Node到框内-js-function
+	
+5.添加(渲染组件/UI组件)
+	js 添加
+	properties:{
+		temp_spr:cc.Sprite,
+	}
+	步骤2 添加sprite，拖拽资源管理器的资源，到属性检查器的脚本组件中，
+	//或者 即可在脚本里拿到设置好的资源
+	var spriteFrame = this.spriteFrame;
+    var texture = this.texture;
+    spriteFrame.setTexture(texture);
+6.js 内容
+	var Net = require('Net')
+	cc.Class({
+		extends: cc.Component,
+		properties:{
+			temp_spr:cc.Sprite,
+			target:{
+				default:null,
+				type:cc.Node,
+			},
+		},
+		onLoad() {},
+		start() {},
+		update(dt) {}, //动画前
+		//另一种写法 onLoad: function(){},
+		lateUpdate(dt) {}, //动画后
+		onDestroy() {}, //当组件或者所在节点调用了 destroy()时
+		onEnable() {}, //当组件的 enabled 属性从 false 变为 true 时，或者所在节点的 active 属性从 false 变为 true 时
+		（倘若节点首次被创建且 enabled 为 true，则会在 onLoad 之后，start 之前被调用）
+	    onDisable() {}, //当组件的 enabled 属性从 true 变为 false 时，或者所在节点的 active 属性从 true 变为 false 时
+	});
+7.js 场景 常驻节点 平台 全局
+	var scene = cc.director.getScene();
+	//从当前场景，切换到MyScene场景
+	cc.director.loadScene("MyScene");
+	//fn：加载MyScene场景时触发, 加载场景回调
+	cc.director.loadScene("MyScene", fn);
+	//后台预加载场景
+	cc.director.preloadScene("MyScene", fn);
+
+	//通过常驻节点，进行场景资源管理和参数传递
+	//常驻节点：不随场景切换，而自动销毁，为所有场景提供持久性信息
+	//设置常驻节点
+	cc.game.addPersistRootNode(myNode);
+	//取消常驻节点，还原为一般场景节点
+	cc.game.removePersistRootNode(myNode);
+
+	if(!cc.sys.isNative && cc.sys.isMobile){
+	    var cvs = this.node.getComponent(cc.Canvas);
+        cvs.fitHeight = true;
+        cvs.fitWidth = true;
+	}
+	//cc.vv 命名空间，全局
+	var GameNetMgr = require("GameNetMgr");
+    cc.vv.gameNetMgr = new GameNetMgr();
+    var onGet = function(ret) {};
+    var data = { account:1, sign:2, };
+    cc.vv.http.sendRequest('/get_user_status', data, onGet.bind(this));
+    var btn = cc.find(btnPath);
+    cc.vv.utils.addClickEvent(btn, this.node, 'Hall', 'onBtnClicked');
+8.访问节点和组件
+	获得组件所在的节点， this.node
+	获取其他组件 this.getComponent(组件名)
+	获取其他节点及其组件: 
+		返回子节点数组 this.node.children
+		返回对应的子节点 this.node.getChildByName(子节点名)
+		查找后代节点 cc.find(子节点/.../后代节点， this.node);
+		全局查找节点 cc.find(场景/节点/节点/...);
+
+		访问已有变量里的值 （通过模块访问）
+			专门开设一个中介模块，导出接口；在其他模块进行节点、组件、属性的操作
+			//Global.js
+			module.exports = 
+			{
+				backNode:null,
+				backLabel:null,
+			};
+			//Back.js
+			var Global = require("Glocal")
+			cc.Class({
+				extends:cc.Component,
+				onLoad: function()
+				{
+					Global.backNode = this.node,
+					Glocal.backLabel = this.getComponent(cc.Label),
+				}
+			});
+			//AnyScript.js
+			var Global = require("Glocal")
+			cc.Class({
+				extends: cc.Component,
+				start: function(){
+					var text = "Back";
+					Global.backLabel.string = text;
+				}
+			})
+10.websocket
+    var ws = new WebSocket("ws://localhost:8080/");
+    	ws.onopen = function (event) {
+            console.log("Send Text WS was opened.");
+            var jsonTab = {
+                cmd:"login", 
+                name:"value",
+                gender:"male",
+                headurl:"www.baidu.com",
+                unionid:"unionid_2",
+            };
+            var jsonStr = JSON.stringify(jsonTab);
+            ws.send(jsonStr);
+        };
+        ws.onmessage = function (event) {
+            console.log("response text msg: " + event.data);
+            var jsonTab = JSON.stringify(event.data);
+            if (jsonTab.cmd == "login") {
+
+            }
+            if (jsonTab.cmd == "ranking") {
+                
+            }
+            if (jsonTab.cmd == "setinfo") {
+                
+            }
+        };
+        ws.onerror = function (event) {
+            console.log("Send Text fired an error");
+        };
+        ws.onclose = function (event) {
+            console.log("WebSocket instance closed.");
+        };
+11.获取和加载资源
+cc.loader.loadRes
+cc.loader.load
+--
+1.assets/resources/Json/jsconfig.json
+cc.loader.loadRes(url, function(err, any){
+	if (err) {
+		console.log('err', typeof(err), JSON.stringify(err));
+	}
+	if (any) {
+		console.log('any', typeof(any), JSON.stringify(any.json));
+	}
+});
+
+
+
+
+
+
+
+
+
+

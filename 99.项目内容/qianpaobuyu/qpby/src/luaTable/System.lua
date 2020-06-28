@@ -1,0 +1,3 @@
+local System = 
+{["SystemSet"]={[1]={["ShowDebugInfo"]="0", ["Shadow"]="1",["Catch"]={[1]={["NoticeLevel"]="3000", ["AndroidProbMul"]="1.0"}, }, ["FirstFire"]={[1]={["level"]="0", ["Count"]="10", ["TypeCount"]="5", ["TypeList"]="1,2,3,4,5", ["WeightList"]="1,1,1,1,1"}, }, ["IonSet"]={[1]={["Multiple"]="30", ["Probability"]="500", ["time"]="7"}, }, ["DefaultScreenSet"]={[1]={["width"]="1334", ["height"]="750"}, }, ["ExchangeScore"]={[1]={["Ratio"]="1:1", ["Once"]="1000000", ["ShowGoldMinMul"]="1"}, }, ["CannonSet"]={[1]={["Normal"]="0", ["Ion"]="1", ["Double"]="1"}, }, ["Fire"]={[1]={["Interval"]="200", ["MaxInterval"]="90000", ["MaxBullet"]="25"}, }, ["Special"]={[1]={["MaxCount"]="3"}, }, }, }, }
+return  System

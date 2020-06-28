@@ -1,0 +1,21 @@
+
+material ParticleUniverse/Circle
+{
+	technique
+	{
+		pass
+		{
+			lightning off
+			scene_blend add
+			depth_check off
+			depth_write off
+
+			texture_unit
+			{
+				texture pu_circle.png
+			}
+		}
+
+	}
+
+}

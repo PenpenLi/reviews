@@ -1,0 +1,265 @@
+1.cocoscreator
+资源管理器
+场景管理器
+层级管理器
+属性管理器
+2.fire 层级管理器 结构参考
+Canvas: 
+	添加脚本 Script .js, 相当于场景（继承，属性，函数）
+	添加组件 img layout txt btn etc. (将子节点组件 添加对应)
+
+3.获取和加载资源
+	cc.Class({
+		extends: cc.Component,
+		//资源属性的声明
+		properties:{
+			//所有继承自 cc.Asset 的类型统称资源
+			texture:{
+				default: null,
+				type: cc.Texture2D,
+			},
+			spriteFrame:{
+				default: null,
+				type: cc.SpriteFrame
+			}
+		}
+		//静态加载 在属性检查器里设置资源
+		onLoad: function(){
+			//拖拽资源管理器的资源，到属性检查器的脚本组件中，即可在脚本里拿到设置好的资源
+			var spriteFrame = this.spriteFrame;
+			var texture = this.texture;
+			spriteFrame.setTexture(texture);
+		}
+
+		//动态加载的资源，需要存放于assets的子目录resources中
+		//加载单个资源
+		cc.loader.loadRes(resources的相对路径，类型可选，回调函数)
+		//加载prefab资源
+		cc.loader.loadRes("test assets/prefab", function(err, prefab){
+			var newNode = cc.instantiate(prefab);
+			cc.director.getScene().addChild(newNode);
+		})
+		//加载SpriteFrame
+		var self = this
+		cc.loader.loadRes("test assets/image", cc.SpriteFrame, function(err, spriteFrame){
+			self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+		})
+		
+		//批量加载资源
+		cc.loader.loadResDir(resouces的相对路径，类型可选，回调函数)
+		//加载test assets目录下所有资源
+		cc.loader.loadResDir("test assets", function(err, assets){
+			// ...
+		})
+		//加载test assets目录下所有SpriteFrame，并且获取他们的路径
+		cc.loader.loadResDir("test assets", cc.SpriteFrame, function(err, assets, url){
+			// ...
+		})
+
+		//资源浅释放
+		cc.loader.releaseRes(resources的相对路径，类型可选)
+		cc.loader.releaseRes("test assets/image", cc.SpriteFrame)
+		cc.loader.releaseRes("test assets/anim");
+		cc.loader.releaseAsset("组件名")
+		cc.loader.releaseAsset(spriteFrame);
+		//资源深释放，释放一个资源以及所有它依赖的资源
+		var deps = cc.loader.getDependsRecursively('prefabs/sample')
+
+		//加载远程资源和设备资源
+		//远程url带图片后缀名
+		var remoteUrl = "http://unknown.org/someres.png"
+		cc.loader.load(remoteUrl, function(err, texture){
+			//...
+		})
+		//远程url不带图片后缀名，此时必须制定远程图片文件的类型
+		rmeoteUrl = "http://unknown.org/emoji?id=1122222";
+		cc.loader.load({ url:remoteUrl, type:'png'}, function(){
+			//...
+		})
+		//用绝对路径加载设备存储内的资源，比如相册
+		var absolutePath = "/data/data/some/path/to/image.png"
+		cc.loader.load(absolutePath, function(){
+			//...
+		})
+
+		//加载限制
+		原生平台远程加载不支持图片文件意外类型的资源
+		这种加载方式只支持图片、声音、文本等原生资源类型、不支持SpriteFrame/SpriteAtlas/Tilemap
+		等资源的直接加载和解析。（需要后续版本中的AssetBundle支持）
+		Web端的远程加载收到浏览器的CORS跨域策略限制，如果对方服务器禁止跨域访问，那么会加载失败，
+		而且由于webgl安全策略的限制，即使对方服务器允许http访问请求成功之后也无法渲染。
+
+		//资源的依赖和释放
+		//直接释放某个贴图
+		cc.loader.release(texture);
+		//释放一个prefab 以及所有它依赖的资源
+		var deps = cc.loader.getDependsRecusively('prefabs/sample');
+		cc.loader.release(deps);
+		//如果在这个prefab中，有一些和场景其他部分共享的资源，你不希望他们被释放，可以将这个资源从依赖列表中删除
+		var deps = cc.loader.getDependsRecursively('prefabs/sample');
+		var index = deps.indexOf(texture2d.__uuid);
+		if (index !== -1) 
+			deps.splice(index, 1);
+		cc.loader.release(deps);
+	});
+4.监听和发射事件	
+	//监听和发射事件
+	//target是可选参数，用于绑定响应函数的调用者
+	//boolean是可选参数，默认为false，表示冒泡流
+	this.node.on(event, fn, target, boolean);
+	this.node.off(event, fn, target, boolean);
+	//发射事件; 为事件函数，提供参数，最多5个
+	this.node.emit(event, arg1, arg2, arg3);
+	//派送事件
+	//grandson.js；升级版的on,冒泡到的节点，全部注册事件
+	this.node.dispatchEvent(new cc.Event.EventCustom('foobar', true))
+	//father.js; 在指定的上级节点中，注册相同的时间，阻止时间冒泡，手动停止派送
+	this.node.on('foobar', function(event){
+		event.stopPropagation();
+	})
+
+	//事件对象 回调参数的event对象
+	AIP名    		类型   	意义
+	type 			String 	时间的类型（事件名）
+	target  	 	cc.Node
+	currentTarget 	cc.Node
+	getType 		Function
+	stopPropation 	Function
+	stopPropationImmediate 
+	getCurrentTarget 
+	detail 			Function
+	setUserData 	Function
+	getUserDat 		Function
+
+5.节点系统事件
+	//鼠标事件类型和事件对象
+	mousedown cc.Node.EventType.MOUSE_DOWN 
+	mouseenter
+	mousemove
+	mouseleave
+	mouseup
+	mousewheel
+	//函数名
+	getScrollY Number 获取滚轮的Y轴距离
+	getLocation Object 获取鼠标位置对象，对象包含x和y属性
+	getPreviousLocation Object 获取鼠标事件上次触发时的位置对象
+	getDelta Object 获取鼠标距离上一次时间移动的距离对象，包含xy
+	getButton Number cc.Event.EventMouse.BUTTON_LEFT/RIGHT/MIDDLE
+	//触摸事件类型和事件对象
+	cc.Node.EventType.TOUCH_START/MOVE/END/CANCEL
+	touchstart touchmove touchend touchcancel
+	//函数名
+	getStartLocation 获取触摸起始时
+	//其他事件
+	position-changed 位置修改时
+	rotation-changed 
+	scale-changed
+	size-changed 
+	anchor-changed
+	//ps,没加对象定义、事件名等价，在回调参数中，作用相同.
+
+5.全局系统事件
+	//全局系统事件的类型
+	cc.SystemEvent.EventType.KEY_DOWN //键盘按下
+	cc.SystemEvent.EventType.KEY_UP //键盘按下
+	cc.SystemEvent.EventType.DEVICEMOTION //设备重力传感
+	//绑定、解除全局系统事件
+	cc.SystemEvent.on(event, fn, target, boolean);
+	cc.SystemEvent.off(event, fn, target, boolean);
+
+6.动作系统 变换系统
+	//执行动作
+	node.runAction(action);
+	node.stopAction(action);
+	node.stopAllActions();
+	//给action 设置tag
+	var ACTION_TAG = 1;
+	action.setTag(ACTION_TAG)
+	node.getActionByTag(ACTION_TAG)
+	node.stopActionByTag(ACTION_TAG)
+	//即时动作
+	cc.show() //立即显示
+	cc.hide() //立即隐藏
+	cc.moveTo()
+	...
+	var finished = cc.callFunc(fn, target, arg);
+	var action = cc.scaleTo(0.5, 2, 2);
+	//使用easeIn曲线，丰富动作变现
+	action.easing(cc.easeIn(3.0))
+	//ps,可以使用欢动系统，代替动作系统。欢动系统的api更简约
+
+7.计时器
+	//interval, 以秒为单位的时间间隔
+	//repeat, 重复次数
+	//delay, 开始延时
+	this.schedule(fn, interval, repeat, delay)
+	this.schedule(fn)
+
+8.脚本执行顺序
+	editor:{
+		//executionOrder越小，该组件相对其他组件就会越先执行，默认为0
+		//executionOrder只对 onLoad, onEnable start update 和 lateUpdate 有效，对onDisable和onDestroy无效。
+		executionOrder: 1
+	}
+
+9.标准网络接口
+	XMLHttpRequest, 短连接
+	WebSocket, 长连接
+
+10.对象池
+	对象池的概念
+	在同一场景中，需要多次进行节点的生成、消失时，假如直接进行创建、销毁的操作，就会很浪费时间。
+	因此，使用对象池，存储需要消失的节点，释放需要生成的节点，达到节点回收利用的目的。
+	工作流程
+	properties:{
+		enemyPrefab: cc.Prefab //准备预支资源
+	},
+	onLoad:function(){
+		this.enemyPool = new cc.NodePool();
+		let initCount = 5;
+		for (let i = 0; i < initCount; ++i) {
+			let enemy = cc.instantiate(this.enemyPrefab); //创建节点
+			this.enemyPool.put(enemy); //通过put接口放入对象池
+		}
+	}
+	createEnemy:function(parentNode) {
+		let enemy = null;
+		if (this.enemyPool.size() > 0) { //通过size接口 判断对象池中是否有空闲的对象
+			enemy = this.enemyPool.get();
+		} else { //如果没有空闲对象，也就是对象池中备用对象不够时，我们就用cc.instantiate重新创建
+			enemy = cc.instantiate(this.enemyPrefab);
+		}
+		enemy.parent = parentNode; //将生成的敌人加入节点树
+		enemy.getComponent('Enemy').init(); //接下来就可以调用enemy身上的脚本进行初始化
+	}
+	onEnemyKilled:function(enemy){
+		//enemy 应该是一个 cc.Node
+		this.enemyPool.put(enemy);//和初始化方法一样，将节点放入对象池，这个方法会同时调用节点的removeFromParent
+	}
+	//清除对象池
+	//手动清空对象池，销毁其中缓存的所有节点
+	myPool.clear()
+
+11.跨平台发布游戏
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

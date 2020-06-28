@@ -1,0 +1,18 @@
+
+material ParticleUniverse/Rain_02
+{
+	technique
+	{
+		pass
+		{
+			scene_blend add
+
+			texture_unit
+			{
+				texture pu_stone.jpeg
+			}
+		}
+
+	}
+
+}

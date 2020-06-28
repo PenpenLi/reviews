@@ -1,0 +1,91 @@
+
+========================================================================================================================
+https://blog.csdn.net/zcl1804742527/article/details/52681495
+https://www.cnblogs.com/xxiaoye/p/3950185.html
+
+1.cocos2d-x内存管理机制
+引用计数 垃圾回收
+release 会立马对对象进行引用计数减一操作，如果当前对象的引用计数小于0，则会进行释放。
+autorelease 则会将该对象放入到自动释放池中，当一帧结束的时候会执行release操作进行引用计数减一操作，如果当前对象的引用计数小于0，则会进行释放。
+
+2.cocos2d-x的图形渲染机制
+顶点着色（顶点坐标变幻等一系列操作）- 几何着色器（添加或删除部分顶点）- 光栅化（把数据信息转换成像素信息）
+- 片段着色器（把像素显示到屏幕上）- 着色器其他操作（比如深度测试，光线叠加等）
+
+3.cache的机制原理
+把新加进内存的资源，做一个hashmap存储，每一个资源加一个key。每次加载资源的时候，先查找资源是否存在。
+
+4.场景切换的内存处理
+先构建新场景，然后显示新场景，然后释放旧场景。
+在新场景onEnter，旧场景onExit的时候，会调用旧场景的cleanup，清理schedule相关部分。
+
+5.动作回调函数是 作用和原理
+target回调对象指针，加selector回调函数指针。
+
+7.cocos2d-x游戏储存
+UserDefault和SQLit
+
+8.简述SpriteFrameCache和SpriteBatchNode
+SpriteFrameCache缓存了所有的SpriteFrame，可以直接获取
+SpriteBatchNode中所有Sprite只会被渲染一次，因此可以提高游戏的FPS.
+
+9.屏幕适配解决方案
+setDesignResolutionSize(480, 320, kResolutionNoBorder) --kResolutionExactFit变形
+--[[适配方案
+    1.不等比全屏 kResolutionExactFit；其他都为等比
+    2.FIXED_HEIGHT和FIXED_WIDTH；比较宽高实际分辨率/设计分辨率选择；背景用大的，内容用小的或者。
+--]]
+
+10.减少内存开销的方法有哪些
+https://juejin.im/entry/599e4f8b51882524337071da
+及时释放，减少泄漏，重用资源，plist，延迟加载，分布加载等。
+调整加载图片的方式，改变图片的格式，.pvr, 32位图改16位图加载。
+
+11.cocos2dx中，触摸的优先级的规则
+this->mTouchPriporty
+Layer 优先级越小越高越先响应事件
+同等优先级下，后添加的Layer先响应事件
+
+12.执行顺序相关
+我们知道Cocos2d-x程序的执行顺序是从AppDelegate这个类开始，在其中做一些必要的初始化并创建运行第一个场景，之后有一个主循环来维持游戏每一帧的循环，并在此期间执行游戏的相关逻辑。
+当游戏结束时，会调用导演类的end方法，将会执行游戏的清理工作，并结束了OpenGL视图的运行。不同的平台会有不同的封装，PC端由OpenGL封装，移动端则由OpenGLES，最后退出游戏进程，结束了整个游戏的运行
+
+13.Cocos2dx 小技巧——三种缓存类介绍
+http://imgtec.eetrend.com/d6-imgtec/blog/2018-04/11436.html
+
+14.内存优化
+--[[
+    1.Texture（纹理）！它几乎占据了90%的应用内存.
+    纹理格式是pvr.ccz;
+    颜色深度是RGBA4444的纹理来代替RBGA8888;
+    纹理大小1024*1024, 合图，由大到小逐帧加载;
+    2.背景音乐文件大小在800KB一下;音频文件样本率在96-128kbps;比特率在44kHz;
+    3.避免内存泄露；
+    VS下内存泄露检测工具Visual Leak Detector；
+    xcode ios下内存泄露使用Instruments来查找程序中的内存泄露：
+    http://blog.csdn.net/totogo2010/article/details/8233565
+    4.释放内存
+    this->removeFromParentAndCleanup(true);
+    AnimationCache::destroyInstance();
+    SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
+    Director::getInstance()->getTextureCache()->removeAllTextures();
+    Director::getInstance()->replaceScene(HelloWorld::createScene());
+--]]
+
+15.cocos2dx中使用的设计模式
+单例模式：{ 导演及各个缓存类 }
+观察者模式：{ 事件机制 }
+管理器模式：{ cache,提供统一接口，来统一管理一组相关对象的实例化和访问。}
+外观模式：{ 
+封装了一组对象，我们通过它的接口来实现功能，而内部它调用了各个对象的功能模块。
+音频SimpleAudioEngine调用这个类的接口来完成的，而底层它是使用了CDSoundEngine、CDAudioManage 
+}
+工厂模式：{ 精灵创建 }
+对象池模式：{ 一个对象池内有一组已初始化过，且可以使用的物件。问题：需要经常实例化 }
+二段构造模式：{
+初始化时会遇到图片资源不存在等异常；c++构造无返回值，只能用try-catch来处理异常，启用try-catch会使编译后二进制文件大不少；故需要init返回bool值。
+}
+========================================================================================================================
+
+
+

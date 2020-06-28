@@ -1,0 +1,71 @@
+1.加载鱼的路径
+2.纹理加载
+	cc.SpriteFrameCache:getInstance():addSpriteFrames 
+  	cc.Director:getInstance():getTextureCache():addImageAsync
+3.创造物理世界    
+	cc.Director:getInstance():getRunningScene():initWithPhysics()
+    cc.Director:getInstance():getRunningScene():getPhysicsWorld():setGravity(cc.p(0, -100))
+4.水波效果
+    local manager = ccs.ArmatureDataManager:getInstance()
+    manager:addArmatureFileInfo("Resource/effect_bg_water.ExportJson")
+    manager:addArmatureFileInfo("Resource/fish_jinbi_1.ExportJson")
+    local armature = ccs.Armature:create("effect_bg_water")
+    armature:setPosition(1280/2,720/2)
+    self:addChild(armature,1000)
+    armature:getAnimation():play("effect_bg_water_animation",-1,1)
+5.创建鱼 更新鱼位置
+    self.m_scheduleUpdateFish = scheduler:scheduleScriptFunc(handler(self,self.updateFish),0.031,false)
+	updateFish
+
+    function FishSprite:initPhysicsBody()
+	    local body = self:getBodyByType(self.m_type)
+	    if body == nil then print("body is nil") return end
+
+	    self:setPhysicsBody(body)
+	    --[[
+		    local physicsBody = cc.PhysicsBody:create(PHYSICS_INFINITY, PHYSICS_INFINITY)
+		    -- points
+            local center = cc.PhysicsShape:getPolyonCenter(resultPoints)
+            local shape = cc.PhysicsShapePolygon:create(resultPoints,cc.PHYSICSBODY_MATERIAL_DEFAULT,cc.p(-center.x, -center.y))
+            physicsBody:addShape(shape)
+            physicsBody:setGravityEnable(false)
+            return physicsBody
+	    --]]
+	    --self:setPhysicsBody(cc.PhysicsBody:createBox(self:getContentSize()))
+	    --设置物理刚体类别掩码,可以通过检查或比较掩码来确定是否发生碰撞
+	    self:getPhysicsBody():setCategoryBitmask(1)
+	    --设置物理刚体碰撞掩码,可以通过检查或比较掩码来确定是否发生碰撞
+	    self:getPhysicsBody():setCollisionBitmask(0)
+	    --设置物理联系掩码,因为碰撞事件还是不会在默认状态下被接收
+	    self:getPhysicsBody():setContactTestBitmask(2)
+	    --设置子弹不受重力系数影响
+	    self:getPhysicsBody():setGravityEnable(false)
+	end
+6.碰撞监听
+    self:addContact()
+    local function onContactBegin(contact)
+        local a = contact:getShapeA():getBody():getNode()
+        local b = contact:getShapeB():getBody():getNode()
+    end
+    --
+    local dispatcher = self:getEventDispatcher()
+    self.contactListener = cc.EventListenerPhysicsContact:create()
+    self.contactListener:registerScriptHandler(onContactBegin, cc.Handler.EVENT_PHYSICS_CONTACT_BEGIN)
+    dispatcher:addEventListenerWithSceneGraphPriority(self.contactListener, self)
+7.更新子弹
+    self.m_scheduleUpdateBullet = scheduler:scheduleScriptFunc(handler(self,self.updateBullet),0.031,false)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

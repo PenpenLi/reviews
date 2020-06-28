@@ -1,0 +1,115 @@
+1.https://www.jianshu.com/p/29a015e3bcf7
+什么是架构
+
+
+2.https://www.cnblogs.com/doit8791/p/9343826.html
+分层架构: 层与层之间接口通信
+表现层：用户界面，负责视觉和用户互动
+业务层：实现业务逻辑
+持久层：提供数据, sql语句放在这一层
+数据库：保存数据
+
+事件驱动架构：通过事件进行通信
+事件队列：接收事件的入口
+分发器：将不同的事件分发到不同的业务逻辑单元
+事件通道：分发器与处理器之间的联系渠道
+事件处理器：实现业务逻辑，处理完成后会发出事件，触发下一步操作
+
+微核架构：软件的内核相对较小，主要功能和业务逻辑都通过插件实现
+内核：通常只包含系统运行的最小功能
+插件：相互独立，插件之间的通信，应该减少到最低，避免出现互相依赖
+
+微服务架构：每一个服务就是一个独立的部署单元。这些单元都是分布式的，互相解耦，通过远程通信协议联系。
+
+云架构：解决扩展性和并发的问题，是最容易扩展的架构
+处理单元：实现业务逻辑
+虚拟中间件：负责通信、保持sessions、数据复制、分布式处理、处理单元的部署
+
+
+3.https://segmentfault.com/a/1190000019026606
+分布式架构下的负载均衡技术
+
+
+4.https://www.zhihu.com/question/20004877
+分布式与集群的区别
+
+
+5.https://www.docin.com/p-1278636064.html
+棋牌类网络游戏客户端架构
+
+
+6.https://juejin.im/post/5b2f0769e51d45589f46949e
+Vue.js中的MVVM；文档对象模型（Document Object Model，简称DOM）
+
+
+7.https://zhuanlan.zhihu.com/p/67895900
+cocos creator中的MVC设计模式
+
+
+8.https://yq.aliyun.com/articles/366086
+https://blog.csdn.net/zyxjx1314/article/details/105804232/?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-8
+https://books.google.com.ph/books?id=9FSIDwAAQBAJ&pg=PT81&lpg=PT81&dq=cocos2dx+lua+MVC&source=bl&ots=Ks2cucqas-&sig=ACfU3U1ZxVpWbArIvN7WSAgCxddD4PqJIw&hl=zh-CN&sa=X&ved=2ahUKEwj_4sn_jfHpAhVWa94KHcWCARQQ6AEwBnoECAoQAQ#v=onepage&q=cocos2dx%20lua%20MVC&f=false
+cocos2dx-lua - MVC 框架
+
+
+9.微服务架构，多“微”才合适？？？？？
+https://baijiahao.baidu.com/s?id=1634644328398384139&wfr=spider&for=pc
+
+
+10.浅谈MVC分层架构中的层次
+https://blog.csdn.net/yintianqin/article/details/55188535
+
+
+11.架构之间的关系
+分层结构与MVC模式：https://www.cnblogs.com/ki16/p/10850055.html
+
+
+
+==========================================================================
+===========================下面是笔记=======================================
+==========================================================================
+
+借鉴使用==========================================================================
+1.分层架构：
+数据库：读取，判定是否有更新，分内容定时更新
+持久层：缓存数据：本地内容，分内容数据
+业务层：业务逻辑：第三方，游戏逻辑，等
+表现层：交互界面
+2.事件驱动架构：
+事件队列：接收消息
+事件分发器：分内容分发
+事件处理器：处理逻辑，响应：状态，动作
+3.微核架构：场景和功能
+扩展性差，不容易做成分布式; 内核和插件的通信，以及内部的插件登记机制
+内核：通常只包含系统运行的最小单元
+插件：相互独立，不能相互依赖
+4.微服务架构：场景和功能
+5.云架构：解决扩展性和并发的问题，是最容易扩展的架构
+回滚功能：操作记录：用户=服务端
+网络连接：socket, http
+加载：异步、提前
+***
+
+
+必备知识点==========================================================================
+分布式与集群区别：一组独立的计算机展现给用户的是一个系统，七层负载均衡
+架构模式：十种常用，MVC、MVVM、组件式开发
+MVC，MVP，MVVM区别：用来解决界面呈现[V]和数据逻辑代码[M]分离而出现的模式
+优秀架构师必须掌握的架构思维
+***
+
+
+--[[==========================================================================
+platform:平台区分：SDK :平台内容: 
+network: 提供注冊接口, 连接断开通知
+utils: 工具函數，通用界面, 日志, 金币昵称显示处理, 显示转化关系, 下载多头像, 部分动画效果
+config: key, id，IP，url, test, channel, update, module注册,
+update: hall, game, etc
+hall: (local: res, txt), (data save or), (network register) others, submodules,
+game: (local: res, txt), (data save or), (network register, connect with)
+--]]
+
+
+
+
+

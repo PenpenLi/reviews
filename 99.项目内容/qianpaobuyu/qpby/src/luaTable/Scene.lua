@@ -1,0 +1,3 @@
+local Scene = 
+{["scene"]={[1]={["id"]="1", ["time"]="600", ["map"]="Map_new_0.jpg", ["bmg"]="bgm1.mp3", ["next"]="2"}, [2]={["id"]="2", ["time"]="600", ["map"]="Map_new_1.jpg", ["bmg"]="bgm2.mp3", ["next"]="3"}, [3]={["id"]="3", ["time"]="600", ["map"]="Map_new_2.jpg", ["bmg"]="bgm3.mp3", ["next"]="4"}, [4]={["id"]="4", ["time"]="600", ["map"]="Map_new_0.jpg", ["bmg"]="bgm1.mp3", ["next"]="5"}, [5]={["id"]="5", ["time"]="600", ["map"]="Map_new_1.jpg", ["bmg"]="bgm2.mp3", ["next"]="6"}, [6]={["id"]="6", ["time"]="600", ["map"]="Map_new_2.jpg", ["bmg"]="bgm3.mp3", ["next"]="7"}, [7]={["id"]="7", ["time"]="600", ["map"]="Map_new_0.jpg", ["bmg"]="bgm1.mp3", ["next"]="2"}, }, }
+return  Scene

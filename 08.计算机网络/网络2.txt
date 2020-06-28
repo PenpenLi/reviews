@@ -1,0 +1,40 @@
+
+1.心跳机制:
+定时发送一个自定义的心跳包，让对方知道自己还或者，以确保连接的有效性的机制。
+网络中的接收和发送数据都是使用操作系统中的socket进行实现的。
+但是如果此socket已经断开，那发送数据和接收数据的时候就一定会有问题。
+客户端给服务端发心跳包
+
+
+3.连包
+加个size
+
+
+2.怎样判断已经断开了网络连接
+https://blog.csdn.net/yangyangye/article/details/21992123
+https://blog.csdn.net/weixin_34174132/article/details/85937198?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
+--[[
+*对端正常close socket，或者进程退出（正常退出或崩溃），对端系统正常关闭.
+这种情况下，协议栈会走正常的关闭状态转移，使用epoll的话，一般要判断如下几个情况
+	处理可读事件时，在循环read后，返回结果 <=0 ; errno != EINTR
+	处理可写事件时，write返回-1，errno为EPIPE
+	EPOLLERR或EPOLLHUP或事件
+--]]
+--[[
+*对端非正常断开，比如服务器断电，网线被拔掉
+这种情况下，协议栈无法感知，SO_KEEPALIVE这个选项的超时事件太长并不实用，一般还是以应用层的heartbeat来及时发现。
+--]]
+
+
+3.C Error Codes in Linux
+https://www.shuzhiduo.com/A/nAJvnBLGJr/
+EPIPE:send函数可能返回的错误码之一，32  /* Broken pipe */
+EINTR        4  /* Interrupted system call */
+
+
+4、Socket SO_KEEPALIVE不能取代心跳线程的原因
+（1）SO_KEEPALIVE是系统底层的机制，用于系统维护每一个tcp连接的。
+（2）心跳线程属于应用层，主要用于终端和服务器连接的检查。
+    即使SO_KEEPALIVE检测到连接正常，但并不能保证终端和服务器连接的正常。
+	有一种情况，服务器进程死了，但它和客户端的tcp连接还连着（该连接由系统维护的）。
+    这就是SO_KEEPALIVE不能取代心跳线程的原因吧。

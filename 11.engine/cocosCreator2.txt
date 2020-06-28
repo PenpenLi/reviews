@@ -1,0 +1,251 @@
+https://www.jianshu.com/p/9d433f967822
+
+1.项目结构
+assets: 与资源管理器同步，游戏的核心目录（每个文件都有相应.meta文件）
+library： 文件的结构和资源格式 将被处理成最终游戏发布时需要的形式
+local：编辑器使用习惯记录
+packages
+settings：项目设置
+temp
+project.json：版本控制，必须与assets共存
+build：打包到处项目，构建项目时，自动生成
+PS:.meta文件，记录某资源在项目中的唯一标识，以及其配置信息，只有在编辑器中对资源做修改，.meta文件才会变化。
+因此，不要在编辑器外，对资源的内容进行操作。
+
+2.资源分类
+scene: .fire，自动释放资源，延迟加载资源
+prefab: 创建方式，拖拽场景节点，到资源管理器
+script:js
+sound
+texture
+...
+
+3.注意事项
+锚点：用于变化、子节点定位基准
+
+4.子系统重点
+渲染系统：对摄像机、渲染组件的了解
+UI系统：对widget/layout等UI组件的了解
+动画系统：创建动画的基本流程，
+		时间曲线（双击动画线，进入编辑窗口），
+		时间管理（双击游标，加减按钮控制参数个数），
+		脚本控制
+物理引擎：碰撞组件***
+音频系统：audioSource组件，脚本控制
+
+5.脚本开发
+定义CCClass： var Sprite = cc.Class({
+	//...
+});
+实例化：var obj = new Sprite();
+判断类型: cc.log(obj instanceof Sprite)
+构造函数：var Sprite = cc.Class({
+	ctor:function(){
+		cc.log(this instanceof Sprite);
+	},
+	print:function(){
+	}
+});
+继承：var Shape = cc.Class();
+	var Rect = cc.Class({
+		extends: Shape
+	});
+父构造函数：实例化时，父类构造函数会自动调用，再调用子类构造函数
+完成声明属性：
+	//简单类型声明
+	properties:{
+		score:{
+			//这几个参数分别指定了 score 的默认值为 0， 在 属性检查器 里，其属性名将显示为：
+			//“Score (player)”, 并且当鼠标移动到参数上时，显示对应的Tooltip
+			default: 0,
+			displayName: "Score (player)",
+			tooltip: "The score of player",
+		}
+	}
+	//数组声明
+	properties:{
+		name:{
+			default: [],
+			type: [cc.String] //用 type 指定数组的每个元素都是字符串类型
+		},
+		enemies:{
+			default: [],
+			type: [cc.Node] //type 同样写成数组，提高代码可读性
+		}，
+	}
+	//get/set 声明
+	properties:{
+		width:{
+			get:function(){
+				return this._width;
+			},
+			set:function(value){
+				this._width = value;
+			}
+		}
+	}
+	properties 常用参数
+	default 默认值
+	type 限定属性的数据类型
+	visible 若为false,则不再属性检查器面板中显示该属性
+	serializable 若为false，则不序列化（保存）该属性
+	displayName 在属性检查器面板中，显示成指定名字
+	tooltip 在属性检查器面板中，添加属性的Tooltip
+访问节点和组件
+	获得组件所在的节点， this.node
+	获取其他组件 this.getComponent(组件名)
+	获取其他节点及其组件: 
+		返回子节点数组 this.node.children
+		返回对应的子节点 this.node.getChildByName(子节点名)
+		查找后代节点 cc.find(子节点/.../后代节点， this.node);
+		全局查找节点 cc.find(场景/节点/节点/...);
+		访问已有变量里的值 （通过模块访问）
+			专门开设一个中介模块，导出接口；在其他模块进行节点、组件、属性的操作
+			//Global.js
+			module.exports = 
+			{
+				backNode:null,
+				backLabel:null,
+			};
+			//Back.js
+			var Global = require("Glocal")
+			cc.Class({
+				extends:cc.Component,
+				onLoad: function()
+				{
+					Global.backNode = this.node,
+					Glocal.backLabel = this.getComponent(cc.Label),
+				}
+			});
+			//AnyScript.js
+			var Global = require("Glocal")
+			cc.Class({
+				extends: cc.Component,
+				start: function(){
+					var text = "Back";
+					Global.backLabel.string = text;
+				}
+			})
+	常用节点和组件接口
+		节点状态和层级操作
+			this.node.active = true;//激活关闭节点
+			this.node.parent = parentNode;//更改节点的父节点
+			shit.node.children
+			this.node.childrenCount
+		更改节点的变化
+			this.node.x =
+			this.node.y =
+			shit.node.setPosition(100, 20)
+			this.node.setPosition(cc.v2(100, 20))
+			this.node.position = cc.v2(100, 29)
+			this.node.rotation = 90
+			this.node.setRotation(90)
+			this.node.scaleX = 2
+			this.node.setScale(2)
+			this.node.setScale(2, 2)
+			//更改节点尺寸
+			this.node.setContentSize(100, 100);
+			this.node.setContentSize(cc.size(100, 100));
+			this.node.width = 100;
+			this.node.height = 100;
+			//更改节点锚点位置
+			this.node.anchorX = 1;
+			this.node.anchorY = 0;
+			this.node.setAnchorPoint(1, 0);
+		颜色和不透明度
+			//设置颜色
+			mySprite.node.color = cc.Color.RED;
+			//设置不透明度
+			mySprite.node.opacity = 128;
+		常用组件接口
+			cc.Component 是所有组件的基类，任何组件都包括如下的常见接口：
+			this.node 该组件所属的节点实例
+			this.enabled  是否每帧执行该组件的 update 方法，同时也用来控制渲染组件是否显示
+			update(dt) 作为组件的成员方法，在组件的 enabled 属性为 true 时，其中的代码会每帧执行
+			onLoad()
+			start()
+生命周期
+	onLoad
+	在节点首次激活时触发，或者所在节点被激活的情况下触发
+	start
+	在组件首次激活前
+	update
+	动画更新前
+	lateUpdate
+	动画更新后
+	onEnable
+	当组件的 enabled 属性从 false 变为 true 时，或者所在节点的 active 属性从 false 变为 true 时（倘若节点首次被创建且 enabled 为 true，则会在 onLoad 之后，start 之前被调用）
+	onDisable
+	当组件的 enabled 属性从 true 变为 false 时，或者所在节点的 active 属性从 true 变为 false 时
+	onDestroy
+	当组件或者所在节点调用了 destroy()时
+创建和销毁节点
+	cc.Class({
+		extends:cc.Component,
+		properties:{
+			sprite:{
+				default:null,
+				type:cc.SpriteFrame,
+			},
+			target:{
+				default:null,
+				type:cc.Node,
+			},
+			target_prefab:{
+				default: null,
+				type: cc.Prefab,//预设
+			}
+		},
+		start:function(){
+			//动态创建节点，并加入到场景中
+			var node = new cc.Node('Sprite')
+			var sp = node.addComponent(cc.Sprite);
+			sp.SpriteFrame = this.sprite
+			node.parent = this.node;
+			//克隆场景中的已有节点
+			var scene = cc.director.getScene();
+			var node = cc.instantiate(this.target);
+			node.parent = scene;
+			node.setPosition(0, 0);
+			//创建预设节点和 克隆节点 相同
+			//5s后，销毁节点并不会立刻被移除，而是在当前帧逻辑更新结束后，统一执行
+			setTimeout(function(){
+				this.target.destroy();
+			}.bind(this), 5000);
+			update:function(dt) {
+				//判断当前节点是否已经被销毁
+				if (cc.isvalid(this.target)) {
+					this.target.rotation += dt * 10.0;
+				}
+			}
+			//ps不要使用removefromparent销毁节点，调用后，它不一定就能完全从内存中释放，
+			因为有可能存在一些逻辑上的问题，导致程序中仍然引用到了这个对象。
+		}
+	})
+加载和切换场景
+	//从当前场景，切换到MyScene场景
+	cc.director.loadScene("MyScene");
+
+	//通过常驻节点，进行场景资源管理和参数传递
+	//常驻节点：不随场景切换，而自动销毁，为所有场景提供持久性信息
+	//设置常驻节点
+	cc.game.addPersistRootNode(myNode);
+	//取消常驻节点，还原为一般场景节点
+	cc.game.removePersistRootNode(myNode);
+
+	//fn：加载MyScene场景时触发, 加载场景回调
+	cc.director.loadScene("MyScene", fn);
+	//后台预加载场景
+	cc.director.preloadScene("MyScene", fn);
+	//有需要时，手动加载该场景
+	cc.director.loadScene("MyScene", fn);
+获取和加载资源
+	资源属性的声明：所有继承自cc.Asset的类型统称资源，
+	//静态加载 在属性检查器里设置资源
+	onLoad:function(){
+		//拖拽资源管理器的资源，到属性检查器的脚本组件中，即可在脚本里拿到设置好的资源
+		var spriteFrame = this.spriteFrame;
+    	var texture = this.texture;
+    	spriteFrame.setTexture(texture);
+	}
+	//动态加载

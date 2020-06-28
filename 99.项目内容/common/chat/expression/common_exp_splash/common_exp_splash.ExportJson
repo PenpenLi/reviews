@@ -1,0 +1,592 @@
+{
+  "content_scale": 1.0,
+  "armature_data": [
+    {
+      "strVersion": "1.6.0.0",
+      "version": 1.6,
+      "name": "common_exp_splash",
+      "bone_data": [
+        {
+          "name": "Layer10",
+          "parent": "",
+          "dI": -1,
+          "x": 0.0,
+          "y": 0.0,
+          "z": 3,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": 0.0,
+          "kY": 0.0,
+          "arrow_x": 5.4836273193359375E-06,
+          "arrow_y": -7.7083095675334334E-06,
+          "effectbyskeleton": true,
+          "bl": 0
+        },
+        {
+          "name": "tong",
+          "parent": "Layer10",
+          "dI": -1000,
+          "x": 32.380950927734375,
+          "y": 10.476188659667969,
+          "z": 2,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": -2.37909126,
+          "kY": 2.37909126,
+          "arrow_x": 44.121540069580078,
+          "arrow_y": -2.1807209122925997E-05,
+          "effectbyskeleton": true,
+          "bl": 44,
+          "display_data": [
+            {
+              "name": "public_funny_tong_1.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 34.6085434,
+                  "y": -18.30646,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 2.37909222,
+                  "kY": -2.37909222
+                }
+              ]
+            },
+            {
+              "name": "public_funny_tong_2.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": 34.6085434,
+                  "y": -18.30646,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 2.37909222,
+                  "kY": -2.37909222
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "shui",
+          "parent": "Layer10",
+          "dI": 4,
+          "x": -18.095235824584961,
+          "y": -1.9047617912292481,
+          "z": 1,
+          "cX": 1.0,
+          "cY": 1.0,
+          "kX": -3.00215268,
+          "kY": 3.00215268,
+          "arrow_x": 27.40882682800293,
+          "arrow_y": 4.6210770960897207E-06,
+          "effectbyskeleton": true,
+          "bl": 27,
+          "display_data": [
+            {
+              "name": "public_funny_shui_1.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            },
+            {
+              "name": "public_funny_shui_2.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            },
+            {
+              "name": "public_funny_shui_3.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            },
+            {
+              "name": "public_funny_shui_4.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            },
+            {
+              "name": "public_funny_shui_6.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            },
+            {
+              "name": "public_funny_shui_5.png",
+              "displayType": 0,
+              "skin_data": [
+                {
+                  "x": -5.104512,
+                  "y": 5.534725,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 3.002153,
+                  "kY": -3.002153
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "animation_data": [
+    {
+      "name": "common_exp_splash",
+      "mov_data": [
+        {
+          "name": "move",
+          "dr": 1,
+          "lp": false,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 1.0,
+          "mov_bone_data": [
+            {
+              "name": "Layer10",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": -1,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "tong",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "shui",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 4,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "end",
+          "dr": 81,
+          "lp": false,
+          "to": 0,
+          "drTW": 0,
+          "twE": 0,
+          "sc": 1.0,
+          "mov_bone_data": [
+            {
+              "name": "Layer10",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": -1,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "tong",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 255,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 1,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 14,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 1,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 79,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": -1000,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 80,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            },
+            {
+              "name": "shui",
+              "dl": 0.0,
+              "frame_data": [
+                {
+                  "dI": -995,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 0,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 0,
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 14,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 1,
+                  "x": 9.5238094329833984,
+                  "y": -4.761904239654541,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 22,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 3,
+                  "x": 9.5238094329833984,
+                  "y": -26.6972599029541,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 29,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 5,
+                  "x": 9.5238094329833984,
+                  "y": -15.575891494750977,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 37,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 4,
+                  "x": 9.5238094329833984,
+                  "y": -30.814004898071289,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 46,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 4,
+                  "x": 9.5238094329833984,
+                  "y": -30.814004898071289,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 54,
+                  "twE": 0,
+                  "tweenFrame": false,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 4,
+                  "x": 9.5238094329833984,
+                  "y": -30.814004898071289,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 65,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "bd_src": 1,
+                  "bd_dst": 771
+                },
+                {
+                  "dI": 4,
+                  "x": 9.5238094329833984,
+                  "y": -30.0,
+                  "z": 0,
+                  "cX": 1.0,
+                  "cY": 1.0,
+                  "kX": 0.0,
+                  "kY": 0.0,
+                  "fi": 80,
+                  "twE": 0,
+                  "tweenFrame": true,
+                  "color": {
+                    "a": 0,
+                    "r": 255,
+                    "g": 255,
+                    "b": 255
+                  },
+                  "bd_src": 1,
+                  "bd_dst": 771
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "texture_data": [
+    {
+      "name": "public_funny_shui_1",
+      "width": 33.0,
+      "height": 87.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_tong_1",
+      "width": 65.0,
+      "height": 80.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_tong_2",
+      "width": 72.0,
+      "height": 79.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_shui_2",
+      "width": 44.0,
+      "height": 66.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_shui_3",
+      "width": 134.0,
+      "height": 38.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_shui_4",
+      "width": 135.0,
+      "height": 30.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_shui_6",
+      "width": 130.0,
+      "height": 21.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    },
+    {
+      "name": "public_funny_shui_5",
+      "width": 134.0,
+      "height": 52.0,
+      "pX": 0.5,
+      "pY": 0.5,
+      "plistFile": ""
+    }
+  ],
+  "config_file_path": [
+    "public_funny_poshui0.plist"
+  ],
+  "config_png_path": [
+    "public_funny_poshui0.png"
+  ]
+}
