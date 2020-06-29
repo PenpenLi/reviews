@@ -1,0 +1,146 @@
+/*
+https://developer.mozilla.org/en-CN/docs/Learn/CSS;
+https://www.youtube.com/watch?v=laEqXy9cjs0
+https://codepen.io/pen/
+https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Selectors
+https://developer.mozilla.org/en-US/docs/Web/CSS/color_value
+https://serennu.com/colour/hsltorgb.php;
+https://developer.mozilla.org/en-CN/docs/Learn/CSS/Styling_text/Fundamentals
+https://www.cssfontstack.com
+https://fonts.google.com
+*/
+/*
+三种方式添加css：
+外部样式表：html的<link>包含
+内部样式表：html的<style>里
+内联样式：html元素的sytle属性； 不推荐，难维护，除非特殊。
+*/
+/*
+<p class="paragraph" id="para1">Lorem</p>
+p{}
+.paragraph{}
+#para1{} --id应该 独一无二
+*/
+/*
+width:80%;
+margin:auto;
+*/
+/*color =================================
+关键字：black, silver
+RGB,RGBA: rgb(255,0,0); rgb(255,0,0,0.5)
+十六进制：#ff0000
+HSL,HSLA：hsl(0, 100%, 50%), hsl(0, ,100%, 50%, 0.5); 
+色相，饱和度，亮度；
+hue: 0-360, 0红色；120绿色；240蓝色;
+saturation: 灰色->全彩;
+亮度：黑色->白色;
+*/
+/*字体 =================================
+font-weight: bold;
+font-size: 16px;
+font-family:Arial,Helvetica,sans-serif;
+font-family:;"Andale Momo", monospace;
+font: bold 16px Arial, Helvetica,sans-serif;
+
+font-syle: italic;
+text-decoration: underline;
+text-transform:uppercase;
+letter-spacing: 1em;
+word-spacing: 2em;
+line-height: 1.5em;
+*/
+/*盒子模型 ===============================
+margin-border-padding-content;
+外边距合并：取两个盒子中较大的外边距
+h1-h6:border:0;
+p{ 
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	margin-left: 10px;
+	顺时针方向
+	margin: 5px 10px 5px 10px;
+	margin: 5px 10px 5px； 上，左右，下
+	margin: 5px 10px; 上下，左右
+	margin: 5px； 上下左右
+	--
+	border: 5px blue solid;
+	border-radius: 15px;
+*/
+/*list ===============================
+.list li{
+	list-style: none;
+	list-style-image: url("../imge/check.jpg");
+}
+.list h1{
+	text-align: center;
+}
+.list2 li:nth-child(event){
+	//偶数even；奇数；
+	background-color: #333333;
+};
+.list2 li:first-child{
+	background-color: black;
+}
+*/
+/*button ===============================
+button{
+	background-color:#44444;
+}
+button:havor{
+	background-color:red;	
+}
+button:active{
+	background-color:white;	
+};
+*/
+/*a ====================================
+a{
+	text-decoration: none;
+	color:#44444;
+}
+a:havor{
+	color:red;	
+}
+a:visited{
+	color:white;	
+};
+*/
+/*float ===============================
+.block{
+	float: left;
+	width: 33.3%;
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+}
+// float 完成后，使用
+。clearfix{
+	clear both;
+}
+*/
+/*position 定位 ===============================
+static：静态定位；
+relative：相对定位；相对原来位置位移；
+absolute：绝对定位；在没有上下文relative时，是参考当前视图页面做偏移的。常用于浮动；
+fixed：固定定位；相对当前视图，用于浮动按钮；
+sticky：例子：滑动到某一个位置，导航栏会固定；
+#fixed{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,176 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>网页例子</title>
+        <link rel="stylesheet" type="text/css" href="zindexcss.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script type="text/javascript" src="http://danml.com/js/download2.js"></script>
+        <!-- <script type="text/javascript" src="jquery-3.5.1.min.js"></script> -->
+        <!-- <script type="text/javascript" src="download.js"></script> -->
+        <script>
+            function onchanges() { // input file绑定onchange事件
+                let files = document.getElementById("file").files;
+                if(files[0].type.indexOf("image")>-1)
+                {
+                    let read = new FileReader();
+                    read.onload = function(e) { // 读取操作完成时触发
+                        let img = new Image();
+                        img.src = e.target.result; // 将base64编码赋给src属性
+                　　　   $("body")[0].appendChild(img);
+                    };
+                    read.readAsDataURL(files[0]); // 读取文件转化成base64编码
+                }
+            } 
+        </script>
+        <script>
+            /**
+             * 上传选择的文件
+             * @param event
+             */
+            function uploadFile(event) {
+                console.log("event_eventevent");
+                if ($("#showFileName").text() == "No file chosen") {
+                    this.$message({
+                        message: '请选择文件',
+                        type: 'warning'
+                    });
+                } else if (!vm.isNeedFileExtension) {
+                    this.$message({
+                        message: '请上传xlsx/xls文件!',
+                        type: 'warning'
+                    });
+                } else if (!vm.fileSizeIsFit) {
+                    this.$message({
+                        message: '上传的文件不能大于2M',
+                        type: 'warning'
+                    });
+                } else {
+                    event.preventDefault();
+                    var formData = new FormData();
+                    formData.append('file', this.file);
+                    formData.append('token', this.token);
+                    var url = baseURL + 'informationManagement/taxpayerInformationManagement/import';
+                    var loading = vm.getLoading("上传中...");
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: formData,
+                        dataType: "json",
+                        cache: false,//上传文件无需缓存
+                        processData: false,//用于对data参数进行序列化处理 这里必须false
+                        contentType: false, //必须
+                        success: function (response) {
+                            console.log(response)
+                            loading.close();
+                            $("#showFileName").html('未选择文件');
+                            if (response.code == 0) {
+                                this.$message({
+                                    message: response.msg,
+                                    type: 'success'
+                                });
+                                //vm.query();
+                                //vm.uploadDialog = false;
+                                /* var para = {
+                                    'fileNumber': vm.aId
+                                };*/
+                                //vm.findFileList(para);
+
+                                /* var pdfName = "";
+                            for (var i = 0; i < response.list.length; i++) {
+                                    var data = response.list[i];
+                                    if (data.readPdfSuccess) {
+                                        pdfName += '<p>文件：' + data.pdfName + '&nbsp;成功</p>';
+                                        electron.listData.push(data);
+                                    } else {
+                                        pdfName += '<p style="color: red">文件：' + data.pdfName + '&nbsp;失败</p>';
+                                    }
+                                }
+                                $("#pdfName").append(pdfName);*/
+                            } else {
+                                loading.close();
+                                this.$message.error('系统错误！请稍后再试！');
+                            }
+                        },
+                        error: function (response) {
+                            loading.close();
+                            this.$message.error('系统错误！请稍后再试！');
+
+                        }
+
+                    });
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form method="get" action="">
+            <input type="file" id="file" name="myfile" accept="image/png, image/jpg, image/jpeg" onchange="onchanges()"/>
+            <input type="button" οnclick="uploadFile()" value="上传"/>
+        </form>
+        <p>
+            <a href="icon_google.jpg.zip" download="icon_google.jpg.zip" target="_blank">
+                <input type="button" value="下载资源"/>
+            </a>
+        </p>
+        <hr>
+
+        <form method="get" action="">
+            <!-- 单选框 -->
+            <h1>Choose your favourite fruit!</h1>
+            <p><input type="radio" name="fruit" value="apple" checked="checked">1.apple</p>
+            <p><input type="radio" name="fruit" value="banana">2.banana</p>
+            <p><input type="radio" name="fruit" value="orange">3.orange</p>
+            <!-- 下拉菜单 -->
+            <h1>Province</h1>
+            <select name="province">
+                <option value="beijing">beijing</option>
+                <option value="shanghai">shanghai</option>
+                <option value="shenzhen">shenzhen</option>
+            </select>
+            <!-- 提交 -->
+            <p><input type="submit"></p>
+        </form>
+        <hr>
+
+        <!-- 通配符 选择器 -->
+        <span>123</span>
+        <!-- 标签选择器: -->
+        <div>123</div>
+        <!-- class 选择器：多对多 -->
+        <div class="demo demo1">123</div>
+        <!-- id 选择器: 一对一 -->
+        <div id="only">123</div>
+        <!-- 看内标签 -->
+        <div><span>123</span></div>
+        <!-- css中添加 !important 后，添加到最高权限 -->
+        <!-- css权重 -->
+        <hr>
+
+        <!-- 复杂选择器 -->
+        <!-- .wrapper strong em{
+            /* id class 标签 * 混合使用 */
+            background-color: red;
+        }
+        div em{
+            /* div 下，所有的em结构，不是单纯的子节点才行 */
+            background-color: red;
+        }
+        div > em{
+            /* 直接子元素选择器 */
+            background-color: red;
+        } -->
+        <div><span>123</span></div>
+        <div class="wrapper">
+            <em>345</em>
+            <strong class="box">
+                <em>234</em>
+            </strong>
+        </div>
+        <!-- <section></section>和<div></div>功能基本相同 -->
+        <!-- https://ke.qq.com/course/231570?tuin=31cf0205&taid=1441322305292434 -->
+        <!-- https://icon.wuruihong.com/ -->
+        <hr>
+        <br>
+        <br>
+    </body>
+</html>

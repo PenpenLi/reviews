@@ -1,0 +1,33 @@
+*{
+    /* background-color: blue; */
+}
+span{
+    color:#000;
+    font-weight: bold!important;
+}
+div{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+    color: #fff;
+}
+.demo{
+    background-color: yellow;
+}
+.demo1{
+    color: #f40;
+}
+#only{
+    background-color: red;
+}
+[id="only"]{
+    background-color: rgb(116, 65, 65);
+}
+/* 复杂选择器、父子器，派生选择器 */
+div span{
+    background-color: red;
+}
+strong em{
+    background-color: red;
+}
